@@ -70,6 +70,7 @@
 </template>
 
 <script>
+    import { CREATE_USER, UPDATE_USER, DELETE_USER } from '../../libs/queryData'
     import { api } from '../../api/users'
     import _assign from 'lodash/assign'
     import { updateData, updateRemoveData } from '../../utils/manage-data'
@@ -110,19 +111,40 @@
                 this.$refs.edit.open(user)
             },
 
+            //store(user) {
+            //    api(createNewUser(user))
+            //        .then (response => {
+            //            this.users = [response.data.data.createUser, ...this.users]
+            //        }).catch((err) => {
+            //        this.$message.warning('Please try again later');
+            //        throw e
+            //    })
+            //},
+
             store(user) {
-                api(createNewUser(user))
-                    .then (response => {
-                        this.users = [response.data.data.createUser, ...this.users]
-                    }).catch((err) => {
-                    this.$message.warning('Please try again later');
-                    throw e
+                this.$apollo.mutate({
+                    mutation: CREATE_USER(user)
+                }).then(response => {
+                    this.users = [response.data.createUser, ...this.users]
                 })
             },
 
+            //async update(user) {
+            //    try {
+            //        await api(updateOldUser(user))
+            //        this.users = updateData(this.users, 'id', user)
+            //    } catch (e) {
+            //        this.$message.warning('Please try again later');
+            //        throw e
+            //    }
+            //},
+
             async update(user) {
                 try {
-                    await api(updateOldUser(user))
+                    await this.$apollo.mutate({
+                        mutation: UPDATE_USER(user)
+                    })
+
                     this.users = updateData(this.users, 'id', user)
                 } catch (e) {
                     this.$message.warning('Please try again later');
@@ -130,9 +152,22 @@
                 }
             },
 
+            //async remove(user) {
+            //    try {
+            //        await api(removeUser(user))
+            //        this.users = updateRemoveData(this.users, user)
+            //    } catch (e) {
+            //        this.$message.warning('Please try again later');
+            //        throw e
+            //    }
+            //}
+
             async remove(user) {
                 try {
-                    await api(removeUser(user))
+                    await this.$apollo.mutate({
+                        mutation: DELETE_USER(user)
+                    });
+
                     this.users = updateRemoveData(this.users, user)
                 } catch (e) {
                     this.$message.warning('Please try again later');

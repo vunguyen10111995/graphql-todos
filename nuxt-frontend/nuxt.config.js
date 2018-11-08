@@ -42,8 +42,21 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/apollo',
   ],
+
+  apollo: {
+    includeNodeModules: true,
+    errorHandler (error) {
+        console.log('%cError', 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;', error.message)
+    },
+    clientConfigs: {
+        default: {
+            httpEndpoint: 'http://localhost:9999/graphql',
+        },
+    }
+  },
   /*
   ** Axios module configuration
   */
