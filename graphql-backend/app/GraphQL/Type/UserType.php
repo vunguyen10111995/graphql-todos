@@ -36,7 +36,7 @@ class UserType extends BaseType
         ];
     }
 
-    protected function resolveCreateAtField($root, $args)
+    protected function resolveCreatedAtField($root, $args)
     {
         return $root->created_at->toIso8601String();
     }
