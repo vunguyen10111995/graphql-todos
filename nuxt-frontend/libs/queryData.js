@@ -32,6 +32,17 @@ export const updateOldUser = (user) => `mutation{updateUser(id:${user.id}, email
 
 export const removeUser = (user) => `mutation{deleteUser(id:${user.id}){id}}`;
 
+export const FETCH_USER = (page) => gql`
+query {
+    users(take:10,page:${page}) {
+    items {
+        id,name,email
+    } cursor {
+        currentPage,total,hasPages,perPage
+        }
+    }
+}
+`
 export const CREATE_USER = (user) => gql`
     mutation{
     createUser(name: "${user.name}",

@@ -70,7 +70,7 @@
 </template>
 
 <script>
-    import { CREATE_USER, UPDATE_USER, DELETE_USER } from '../../libs/queryData'
+    import { FETCH_USER, CREATE_USER, UPDATE_USER, DELETE_USER } from '../../libs/queryData'
     import { api } from '../../api/users'
     import _assign from 'lodash/assign'
     import { updateData, updateRemoveData } from '../../utils/manage-data'
@@ -86,9 +86,12 @@
             Dialog,
         },
 
-        async asyncData({ route, query }) {
-            const response = await api(queryUsers(query.page || 1))
-                .then(( response ) => response.data.data.users)
+        async asyncData({ app, route, query }) {
+            //const response = await api(queryUsers(query.page || 1))
+            //    .then(( response ) => response.data.data.users)
+            const response = await app.apolloProvider.defaultClient.query({
+                query: FETCH_USER(query.page || 1)
+            }).then(({ data }) => data.users)
 
             return {
                 users: response.items,
