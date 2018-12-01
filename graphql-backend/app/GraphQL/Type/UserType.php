@@ -23,12 +23,12 @@ class UserType extends BaseType
                 'type' => Type::string()
             ],
 
-            'created_at' => [
-                'type' => Type::string()
-            ],
-            'updated_at' => [
-                'type' => Type::string()
-            ],
+//            'created_at' => [
+//                'type' => Type::string()
+//            ],
+//            'updated_at' => [
+//                'type' => Type::string()
+//            ],
 
             'profile' => [
                 'type' => GraphQL::type('Profile')
