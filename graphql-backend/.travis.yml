@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 7.1
+
+before_script:
+  - cp .env.travis .env
+  - mysql -e 'create database graphql_test;'
+  - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate
+script:
+  - vendor/bin/phpunit
+deploy:
+  provider: heroku
+  api_key: bba8a1ee-3957-4899-8729-43c36e37217e
+  app: graphql-backend
+  run:
+    - php artisan migrate --force

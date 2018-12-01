@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL: 'http://localhost:9999',
+    baseURL:'https://laravel-nuxt-graphql.herokuapp.com/graphql',
 })

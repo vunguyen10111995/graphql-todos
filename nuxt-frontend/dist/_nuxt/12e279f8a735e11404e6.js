@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{571:function(e,n,i){"use strict";i.r(n);var o={fetch:function(e){return(0,e.redirect)("/users")}},t=i(31),u=Object(t.a)(o,void 0,void 0,!1,null,null,null);u.options.__file="index.vue";n.default=u.exports}}]);

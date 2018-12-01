@@ -1,5 +1,8 @@
 const pkg = require('./package')
 
+require('dotenv').config()
+
+
 module.exports = {
   mode: 'spa',
 
@@ -53,7 +56,7 @@ module.exports = {
     },
     clientConfigs: {
         default: {
-            httpEndpoint: 'http://localhost:9999/graphql',
+            httpEndpoint: 'https://laravel-nuxt-graphql.herokuapp.com/graphql',
         },
     }
   },
@@ -71,16 +74,22 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    //extend(config, ctx) {
-    //  // Run ESLint on save
-    //  if (ctx.isDev && ctx.isClient) {
-    //    config.module.rules.push({
-    //      enforce: 'pre',
-    //      test: /\.(js|vue)$/,
-    //      loader: 'eslint-loader',
-    //      exclude: /(node_modules)/
-    //    })
-    //  }
-    //}
+    filenames: {
+        app: 'main.[chunkhash].js'
+    },
+
+    maxChunkSize: 1024 * 100,
+
+    extend(config, ctx) {
+     // Run ESLint on save
+     if (ctx.isDev && ctx.isClient) {
+       config.module.rules.push({
+         enforce: 'pre',
+         test: /\.(js|vue)$/,
+         loader: 'eslint-loader',
+         exclude: /(node_modules)/
+       })
+     }
+    }
   }
 }
