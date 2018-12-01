@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - "7.1"
+
+before_script:
+  - cp .env.travis .env
+  - mysql -e 'create database graphql_db_test;'
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate
+script:
+  - vendor/bin/phpunit
+deploy:
+  provider: heroku
+  api_key:
+  secure: "bba8a1ee-3957-4899-8729-43c36e37217e"
+  app: "laravel-nuxt-graphql"
+  run: "php artisan migrate --force"
